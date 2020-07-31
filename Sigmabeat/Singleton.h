@@ -1,10 +1,10 @@
 #pragma once
 
-template <typename _T>
+template <typename T>
 class Singleton {
 public:
-    static inline _T* Instance() {
-        static _T inst;
+    static inline T* Instance() {
+        static T inst;
         return &inst;
     };
 protected:
