@@ -10,5 +10,4 @@ private:
     bool SystemUpdate();
     bool Update();
     void Draw();
-
 };

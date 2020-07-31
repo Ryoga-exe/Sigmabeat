@@ -1,11 +1,12 @@
 #include "Game.h"
 
 bool Game::Initialize(const TCHAR* windowTitle) {
-    //if (m_system.Initialize(windowTitle)) return true;
+    DxSystem::Inst()->SetWindowSize({ 1280, 720 });
+    if (DxSystem::Inst()->Initialize(windowTitle)) return true;
     return false;
 }
 bool Game::Finalize() {
-   // m_system.Finalize();
+    DxSystem::Inst()->Finalize();
     return false;
 }
 void Game::ProcessLoop() {

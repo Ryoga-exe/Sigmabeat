@@ -3,7 +3,7 @@
 template <typename T>
 class Singleton {
 public:
-    static inline T* Instance() {
+    static inline T* Inst() {
         static T inst;
         return &inst;
     };

@@ -1,6 +1,6 @@
 #include "DxSystem.h"
 
-DxSystem::DxSystem() : m_hasInitialized(false), m_isFullscreen(false), m_enableChangeSize(false),
+DxSystem::DxSystem() : m_hasInitialized(false), m_isFullscreen(false), m_enableChangeSize(true),
 m_styleMode(7), m_windowSize({640, 480}) {
     DxLib::SetOutApplicationLogValidFlag(FALSE);         // 一番先に行う
     DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); // 上の次に行う
@@ -27,6 +27,12 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
 
     DxLib::DxLib_Init();
 
+    if (DxLib::SetDrawScreen(DX_SCREEN_BACK) != 0) {
+        //ErrMsgBx(L"エラーが発生しました。\nウィンドウの設定に失敗しました。");
+        DxLib::DxLib_End();
+        return true;
+    }
+
     m_hasInitialized = true;
     return false;
 }
@@ -39,6 +45,18 @@ bool DxSystem::Finalize() {
 }
 
 bool DxSystem::Update() {
+    /* !m_enableChangeSize && m_isFullscreen だったら、ここで拡大して描画するやつ */
+
+    return false;
+}
+
+bool DxSystem::SetFullscreenMode(bool isFullscreen) {
+    if (m_isFullscreen == isFullscreen) return false;
+    // DxLib::GetWindowMaxSizeFlag()
+    // DxLib::GetWindowPosition()
+    return false;
+}
+bool DxSystem::ToggleFullscreenMode() {
 
 
     return false;

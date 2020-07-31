@@ -19,7 +19,11 @@ public:
     bool Finalize();
     bool Update();
 
+    bool SetFullscreenMode(bool isFullscreen);
+    bool ToggleFullscreenMode();
     bool SetWindowSize(const RectSize size);
+
+    bool GetIsFullscreen() { return m_isFullscreen; }
     RectSize GetWindowSize();
 
 private:
