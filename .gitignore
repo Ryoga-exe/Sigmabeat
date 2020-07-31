@@ -384,3 +384,6 @@ MigrationBackup/
 *.exe
 *.out
 *.app
+
+# DxLib
+Log.txt
