@@ -1,9 +1,14 @@
 #include "DxSystem.h"
 
+void ErrMsgBx(const TCHAR* errorMsg) {
+    MessageBox(NULL, errorMsg, L"ERROR", MB_OK | MB_ICONERROR);
+}
+
 DxSystem::DxSystem() : m_hasInitialized(false), m_isFullscreen(false), m_enableChangeSize(true),
 m_styleMode(7), m_windowSize({640, 480}) {
     DxLib::SetOutApplicationLogValidFlag(FALSE);         // 一番先に行う
     DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); // 上の次に行う
+    DxLib::SetUseCharSet(DX_CHARSET_UTF8);
 
     DxLib::GetDefaultState(&m_desktopSize.width, &m_desktopSize.height, &m_colorDepth);
     DxLib::SetWindowStyleMode(m_styleMode);
@@ -25,10 +30,12 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
     DxLib::SetMainWindowText(windowTitle);
 
 
-    DxLib::DxLib_Init();
-
+    if (DxLib::DxLib_Init() != 0) {
+        ErrMsgBx(L"エラーが発生しました。\nウィンドウの生成に失敗しました。"); // language
+        return true;
+    }
     if (DxLib::SetDrawScreen(DX_SCREEN_BACK) != 0) {
-        //ErrMsgBx(L"エラーが発生しました。\nウィンドウの設定に失敗しました。");
+        ErrMsgBx(L"エラーが発生しました。\nウィンドウの設定に失敗しました。");
         DxLib::DxLib_End();
         return true;
     }
@@ -50,7 +57,7 @@ bool DxSystem::Update() {
     return false;
 }
 
-bool DxSystem::SetFullscreenMode(bool isFullscreen) {
+bool DxSystem::SetFullscreenMode(const bool isFullscreen) {
     if (m_isFullscreen == isFullscreen) return false;
     // DxLib::GetWindowMaxSizeFlag()
     // DxLib::GetWindowPosition()
@@ -65,7 +72,13 @@ bool DxSystem::ToggleFullscreenMode() {
 bool DxSystem::SetWindowSize(const RectSize size) {
     if (size.width <= 0 || size.height <= 0) return true;
     m_windowSize = size;
+    if (!m_hasInitialized) DxLib::SetWindowInitPosition((int)((m_desktopSize.width - size.width) / 2), (int)((m_desktopSize.height - size.height) / 2));
     return DxLib::SetWindowSize(size.width, size.height) == 0 ? false : true;
+}
+bool DxSystem::SetWindowSizeChangeEnable(const bool enable) {
+    if (m_enableChangeSize == enable) return false;
+    m_enableChangeSize = enable;
+    return DxLib::SetWindowSizeChangeEnableFlag(enable, FALSE) == 0 ? false : true;
 }
 
 RectSize DxSystem::GetWindowSize() {
