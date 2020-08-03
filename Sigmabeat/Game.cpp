@@ -17,10 +17,12 @@ void Game::ProcessLoop() {
 }
 
 bool Game::SystemUpdate() {
+    DxSystem::Inst()->Update();
+    input::UpdateAll();
     return (!DxLib::ScreenFlip() && !DxLib::ProcessMessage() && !DxLib::ClearDrawScreen());
 }
 bool Game::Update() {
-    if (GetInputChar(TRUE) == ' ') {
+    if (Keyboard::Inst()->GetStatus(KEY(F11)) == Keyboard::State::Pressed) {
         DxSystem::Inst()->ToggleFullscreenMode();
     }
     return false;

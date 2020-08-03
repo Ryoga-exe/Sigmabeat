@@ -1,6 +1,7 @@
 #pragma once
 #include "DxLib.h"
 #include "Singleton.h"
+#include "Input.h"
 
 struct CoordI {
     int x, y;

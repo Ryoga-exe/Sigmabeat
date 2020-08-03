@@ -69,6 +69,7 @@ bool DxSystem::Update() {
 bool DxSystem::SetFullscreenMode(const bool isFullscreen) {
     if (m_isFullscreen == isFullscreen) return false;
     if (isFullscreen) {
+        DxLib::SetWindowStyleMode(m_styleMode);
         DxLib::GetWindowPosition(&m_windowPos.width, &m_windowPos.height);
         DxLib::GetWindowSize(&m_windowSize.width, &m_windowSize.height);
         m_isMaxSize = (DxLib::GetWindowMaxSizeFlag() == TRUE);
