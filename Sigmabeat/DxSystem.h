@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include "Singleton.h"
 
-struct coordI {
+struct CoordI {
     int x, y;
 };
 
@@ -32,10 +32,13 @@ public:
 private:
     bool m_hasInitialized,
          m_isFullscreen,
-         m_enableChangeSize;
+         m_enableChangeSize,
+         m_isMaxSize;
 
     int  m_styleMode;
 
     RectSize m_desktopSize, m_windowSize;
+    RectSize m_windowPos;
+
     int   m_colorDepth;
 };

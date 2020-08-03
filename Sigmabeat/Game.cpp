@@ -20,6 +20,9 @@ bool Game::SystemUpdate() {
     return (!DxLib::ScreenFlip() && !DxLib::ProcessMessage() && !DxLib::ClearDrawScreen());
 }
 bool Game::Update() {
+    if (GetInputChar(TRUE) == ' ') {
+        DxSystem::Inst()->ToggleFullscreenMode();
+    }
     return false;
 }
 void Game::Draw() {
