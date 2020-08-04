@@ -37,9 +37,8 @@ private:
          m_isMaxSize;
 
     int  m_styleMode;
+    int  m_colorDepth;
 
     RectSize m_desktopSize, m_windowSize;
     RectSize m_windowPos;
-
-    int   m_colorDepth;
 };
