@@ -155,12 +155,24 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SceneBase\ISceneChanger.cpp" />
+    <ClCompile Include="SceneBase\SceneManager.cpp" />
+    <ClCompile Include="Scene\Menu.cpp" />
+    <ClCompile Include="Scene\Setup.cpp" />
+    <ClCompile Include="Scene\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DxSystem.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="SceneBase\BaseScene.h" />
+    <ClInclude Include="SceneBase\ISceneChanger.h" />
+    <ClInclude Include="SceneBase\SceneManager.h" />
+    <ClInclude Include="Scene\Menu.h" />
+    <ClInclude Include="Scene\Setup.h" />
+    <ClInclude Include="Scene\Title.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Task.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
