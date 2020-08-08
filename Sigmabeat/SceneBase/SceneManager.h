@@ -1,6 +1,7 @@
 #pragma once
 #include "ISceneChanger.h"
 #include "BaseScene.h"
+#include <vector>
 
 class SceneManager : public ISceneChanger, Task {
 public:
@@ -13,6 +14,6 @@ public:
     void ChangeScene(Scene NextScene) override;
 
 private:
-    BaseScene* m_scene;
-    Scene m_nextScene;
+    std::vector<BaseScene*> m_scenes;
+    Scene m_currentScene, m_nextScene;
 };

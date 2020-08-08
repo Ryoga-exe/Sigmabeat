@@ -3,42 +3,40 @@
 #include "../Scene/Menu.h"
 #include "SceneManager.h"
 
-SceneManager::SceneManager() : m_nextScene(Scene::None) {
-    m_scene = (BaseScene*) new Setup(this);
+SceneManager::SceneManager() : m_currentScene(Scene::Setup), m_nextScene(Scene::None) {
+    m_scenes.push_back(new Setup(this));
+    m_scenes.push_back(new Title(this));
+    m_scenes.push_back(new Menu(this));
 }
 
 void SceneManager::Initialize() {
-    m_scene->Initialize();
+    for (auto scene : m_scenes) {
+        scene->Initialize();
+    }
 }
 
 void SceneManager::Finalize() {
-    m_scene->Finalize();
+    for (auto scene : m_scenes) {
+        scene->Finalize();
+        delete scene;
+    }
+    m_scenes.clear();
+
 }
 
 void SceneManager::Update() {
+    if (m_scenes.empty()) return;
     if (m_nextScene != Scene::None) {
-        m_scene->Finalize();
-        delete m_scene;
-        switch (m_nextScene) {
-        case Scene::Setup:
-            m_scene = (BaseScene*) new Setup(this);
-            break;
-        case Scene::Title:
-            m_scene = (BaseScene*) new Title(this);
-            break;
-        case Scene::Menu:
-            m_scene = (BaseScene*) new Menu(this);
-            break;
-        }
+        m_currentScene = m_nextScene;
         m_nextScene = Scene::None;
-        m_scene->Initialize();
+        m_scenes[(int)m_currentScene]->SceneChanged();
     }
-
-    m_scene->Update();
+    m_scenes[(int)m_currentScene]->Update();
 }
 
 void SceneManager::Draw() {
-    m_scene->Draw();
+    if (m_scenes.empty()) return;
+    m_scenes[(int)m_currentScene]->Draw();
 }
 
 void SceneManager::ChangeScene(Scene NextScene) {

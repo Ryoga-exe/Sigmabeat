@@ -13,6 +13,8 @@ public:
     virtual void Finalize() override {}
     virtual void Update() override {}
     virtual void Draw() override {}
+
+    virtual void SceneChanged() {}
     
 protected:
     ISceneChanger* m_sceneChanger;
