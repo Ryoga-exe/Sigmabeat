@@ -27,9 +27,10 @@ void SceneManager::Finalize() {
 void SceneManager::Update() {
     if (m_scenes.empty()) return;
     if (m_nextScene != Scene::None) {
+        m_scenes[(int)m_currentScene]->Quit();
         m_currentScene = m_nextScene;
         m_nextScene = Scene::None;
-        m_scenes[(int)m_currentScene]->SceneChanged();
+        m_scenes[(int)m_currentScene]->Changed();
     }
     m_scenes[(int)m_currentScene]->Update();
 }

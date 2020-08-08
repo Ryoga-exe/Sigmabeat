@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DxSystem.cpp" />
+    <ClCompile Include="Easing\Easing.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -160,9 +161,11 @@
     <ClCompile Include="Scene\Menu.cpp" />
     <ClCompile Include="Scene\Setup.cpp" />
     <ClCompile Include="Scene\Title.cpp" />
+    <ClCompile Include="Time\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DxSystem.h" />
+    <ClInclude Include="Easing\Easing.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="SceneBase\BaseScene.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="Scene\Title.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Task.h" />
+    <ClInclude Include="Time\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -14,7 +14,8 @@ public:
     virtual void Update() override {}
     virtual void Draw() override {}
 
-    virtual void SceneChanged() {}
+    virtual void Changed() {}
+    virtual void Quit() {}
     
 protected:
     ISceneChanger* m_sceneChanger;

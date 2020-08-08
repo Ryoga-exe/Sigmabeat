@@ -2,6 +2,8 @@
 #include "DxLib.h"
 #include "Singleton.h"
 #include "Input.h"
+#include "Time/Timer.h"
+#include "Easing/Easing.h"
 
 struct CoordI {
     int x, y;
