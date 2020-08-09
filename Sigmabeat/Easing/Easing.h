@@ -2,7 +2,7 @@
 #include "../Time/Timer.h"
 
 namespace easing {
-    enum easeParam{
+	enum easeParam {
 		linear,
 		quadIn,
 		quadOut,
@@ -24,7 +24,19 @@ namespace easing {
 		expoInOut,
 		circIn,
 		circOut,
-		circInOut
+		circInOut,
+		// Progress
+		backIn,
+		backOut,
+		backInOut,
+
+		elasticIn,
+		elasticOut,
+		elasticInOut,
+
+		bounceIn,
+		bounceOut,
+		bounceInOut
     };
 
 	double ease(int time, int startTime, int endTime, double startValue, double endValue, easeParam param);
