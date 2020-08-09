@@ -8,4 +8,7 @@ public:
     void Finalize() override;
     void Update() override;
     void Draw() override;
+
+private:
+    int m_myLogoImg;
 };

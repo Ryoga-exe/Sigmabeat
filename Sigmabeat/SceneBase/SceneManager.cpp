@@ -7,7 +7,7 @@ SceneManager::SceneManager() : m_currentScene(Scene::Setup), m_nextScene(Scene::
     m_scenes.push_back(new Setup(this));
     m_scenes.push_back(new Title(this));
     m_scenes.push_back(new Menu(this));
-}
+} 
 
 void SceneManager::Initialize() {
     for (auto scene : m_scenes) {

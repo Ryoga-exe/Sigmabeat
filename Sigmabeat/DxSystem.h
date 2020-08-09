@@ -44,3 +44,5 @@ private:
     RectSize m_desktopSize, m_windowSize;
     RectSize m_windowPos;
 };
+
+int  DrawBg(unsigned int color);
