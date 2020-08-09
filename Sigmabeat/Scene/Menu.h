@@ -8,7 +8,8 @@ public:
     void Finalize() override;
     void Update() override;
     void Draw() override;
-    
+    void Changed() override;
+
 private:
     int m_count;
 };

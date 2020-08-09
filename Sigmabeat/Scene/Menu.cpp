@@ -9,6 +9,9 @@ void Menu::Initialize() {
 void Menu::Finalize() {
 }
 
+void Menu::Changed() {
+}
+
 void Menu::Update() {
     if (CheckHitKey(KEY_INPUT_1) != 0) {
         m_sceneChanger->ChangeScene(Scene::Title);
