@@ -5,7 +5,7 @@
 
 class Keyboard : public Singleton<Keyboard> {
     Keyboard();
-    friend Singleton< Keyboard >;
+    friend Singleton<Keyboard>;
 
 public:
     enum class State {
@@ -31,7 +31,7 @@ private:
 
 class Mouse : public Singleton<Mouse> {
     Mouse();
-    friend Singleton< Mouse >;
+    friend Singleton<Mouse>;
 
 public:
     static constexpr int LEFT_CLICK = 0;
