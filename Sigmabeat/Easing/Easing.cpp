@@ -2,13 +2,13 @@
 #include <math.h>
 
 namespace easing {
-	double ease(int time, int startTime, int endTime, float startValue, float endValue, easeParam param) {
+	double ease(int time, int startTime, int endTime, double startValue, double endValue, easeParam param) {
 		if (endTime <= startTime) return endValue;
 		if (time < startTime) return startValue;
 		if (time > endTime) return endValue;
-		float dur = (float)time - startTime;
-		float t = dur / (endTime - startTime);
-		float c = (float)endValue - startValue;
+		int   dur = time - startTime;
+		double t = dur / (endTime - startTime);
+		double c = endValue - startValue;
 		switch (param) {
 		case linear:  return c * t + startValue;
 		case quadIn:  return c * t * t + startValue;
@@ -58,7 +58,7 @@ namespace easing {
 		}
 		return endValue;
 	}
-	double ease(Timer time, int startTime, int endTime, float startValue, float endValue, easeParam param) {
+	double ease(Timer time, int startTime, int endTime, double startValue, double endValue, easeParam param) {
 		return ease(time.Elapse(), startTime, endTime, startValue, endValue, param);
 	}
 }

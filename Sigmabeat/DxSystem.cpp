@@ -29,7 +29,8 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
     if (m_hasInitialized) return true;
     if (windowTitle == nullptr) return true;
     DxLib::SetMainWindowText(windowTitle);
-
+    DxLib::SetAlwaysRunFlag(TRUE);
+    
 
     if (DxLib::DxLib_Init() != 0) {
         ErrMsgBx(L"エラーが発生しました。\nウィンドウの生成に失敗しました。"); // language
@@ -41,6 +42,7 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
         return true;
     }
 
+    DxLib::SetSysCommandOffFlag(TRUE);
     m_hasInitialized = true;
     return false;
 }

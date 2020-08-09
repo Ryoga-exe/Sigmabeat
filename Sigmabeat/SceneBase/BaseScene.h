@@ -3,11 +3,18 @@
 #include "../Task.h"
 #include "../DxSystem.h"
 
+enum class SceneChangeEffect {
+    None,
+    Fade,
+    Push
+};
+
 class BaseScene : public Task {
 public:
     BaseScene(ISceneChanger* changer, unsigned int bgColor = 0U) {
         m_sceneChanger = changer;
         m_bgColor = bgColor;
+        m_changeEffect = SceneChangeEffect::None;
     }
     virtual ~BaseScene() {}
     virtual void Initialize() override {}
@@ -22,5 +29,7 @@ public:
     
 protected:
     ISceneChanger* m_sceneChanger;
+    SceneChangeEffect m_changeEffect;
+    int m_changeTime_ms;
     unsigned int m_bgColor;
 };

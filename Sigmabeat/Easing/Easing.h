@@ -27,6 +27,6 @@ namespace easing {
 		circInOut
     };
 
-	double ease(int time, int startTime, int endTime, float startValue, float endValue, easeParam param);
-	double ease(Timer time, int startTime, int endTime, float startValue, float endValue, easeParam param);
+	double ease(int time, int startTime, int endTime, double startValue, double endValue, easeParam param);
+	double ease(Timer time, int startTime, int endTime, double startValue, double endValue, easeParam param);
 }
