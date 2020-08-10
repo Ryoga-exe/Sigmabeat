@@ -2,9 +2,9 @@
 
 Setup::Setup(ISceneChanger* changer) : BaseScene(changer, DxLib::GetColor(255, 255, 255)) {
     m_myLogoImg = -1;
-    m_changeEffect.effect = ChangeEffect::Push;
+    m_changeEffect.effect = ChangeEffect::Fade;
     m_changeEffect.easing = easing::expoOut;
-    m_changeEffect.direction = 1;
+    m_changeEffect.color = DxLib::GetColor(255, 255, 255);
 }
 
 void Setup::Initialize() {
@@ -32,5 +32,5 @@ void Setup::Draw() {
     }
 
     int shorterSide = min(winSize.width, winSize.height);
-    DxLib::DrawRotaGraph((int)(winSize.width / 2), (int)(winSize.height / 2), shorterSide / 130, 0.0, m_myLogoImg, FALSE);
+    DxLib::DrawRotaGraph((int)(winSize.width / 2), (int)(winSize.height / 2), shorterSide / 130.0, 0.0, m_myLogoImg, TRUE);
 }

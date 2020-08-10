@@ -64,37 +64,39 @@ bool SceneManager::DrawSceneChangeEffect(bool isQuit) {
         DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)easing::ease(m_timer, m_changedTime, m_changedTime + changeEffect.time_ms, values[0], values[1], changeEffect.easing));
         DrawBg(changeEffect.color);
         DxLib::SetDrawBlendMode(blendMode[0], blendMode[1]);
+        break;
     case ChangeEffect::Push: {
-        float x1, y1, x2, y2;
-        x1 = y1 = 0.f;
-        x2 = (float)winSize.width;
-        y2 = (float)winSize.height;
-        if (changeEffect.direction % 2 == 0) {
-            if (changeEffect.direction == 0) {
-                values[0] = isQuit ? 0 : winSize.width;
-                values[1] = isQuit ? winSize.width : 0;
+            float x1, y1, x2, y2;
+            x1 = y1 = 0.f;
+            x2 = (float)winSize.width;
+            y2 = (float)winSize.height;
+            if (changeEffect.direction % 2 == 0) {
+                if (changeEffect.direction == 0) {
+                    values[0] = isQuit ? 0 : winSize.width;
+                    values[1] = isQuit ? winSize.width : 0;
+                }
+                else {
+                    values[0] = isQuit ? winSize.width : 0;
+                    values[1] = isQuit ? 0 : winSize.width;
+                    x1 = (float)winSize.width;
+                }
+                x2 = (float)easing::ease(m_timer, m_changedTime, m_changedTime + changeEffect.time_ms, values[0], values[1], changeEffect.easing);
             }
             else {
-                values[0] = isQuit ? winSize.width : 0;
-                values[1] = isQuit ? 0 : winSize.width;
-                x1 = (float)winSize.width;
+                if (changeEffect.direction == 1) {
+                    values[0] = isQuit ? 0 : winSize.height;
+                    values[1] = isQuit ? winSize.height : 0;
+                }
+                else {
+                    values[0] = isQuit ? winSize.height : 0;
+                    values[1] = isQuit ? 0 : winSize.height;
+                    y1 = (float)winSize.height;
+                }
+                y2 = (float)easing::ease(m_timer, m_changedTime, m_changedTime + changeEffect.time_ms, values[0], values[1], changeEffect.easing);
             }
-            x2 = (float)easing::ease(m_timer, m_changedTime, m_changedTime + changeEffect.time_ms, values[0], values[1], changeEffect.easing);
+            DrawBoxAA(x1, y1, x2, y2, changeEffect.color, TRUE);
         }
-        else {
-            if (changeEffect.direction == 1) {
-                values[0] = isQuit ? 0 : winSize.height;
-                values[1] = isQuit ? winSize.height : 0;
-            }
-            else {
-                values[0] = isQuit ? winSize.height : 0;
-                values[1] = isQuit ? 0 : winSize.height;
-                y1 = (float)winSize.height;
-            }
-            y2 = (float)easing::ease(m_timer, m_changedTime, m_changedTime + changeEffect.time_ms, values[0], values[1], changeEffect.easing);
-        }
-        DrawBoxAA(x1, y1, x2, y2, changeEffect.color, TRUE);
-    }
+        break;
     default:
         break;
     }
