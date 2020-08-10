@@ -8,7 +8,7 @@ Setup::Setup(ISceneChanger* changer) : BaseScene(changer, DxLib::GetColor(255, 2
 }
 
 void Setup::Initialize() {
-    m_myLogoImg = DxLib::LoadGraph(L"../Data/Image/Ryoga-exe.png");
+    m_myLogoImg = DxLib::LoadGraph(L"Data/Image/Ryoga-exe.png");
 }
 
 void Setup::Finalize() {

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9fb65225-1243-4f61-9768-14ee99a7a26a}</ProjectGuid>
+    <ProjectGuid>{1f19d080-6a54-407a-8e2c-2ee088d68faa}</ProjectGuid>
     <RootNamespace>Sigmabeat</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -151,34 +151,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DxSystem.cpp" />
-    <ClCompile Include="Easing\Easing.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="SceneBase\ISceneChanger.cpp" />
-    <ClCompile Include="SceneBase\SceneManager.cpp" />
-    <ClCompile Include="Scene\Menu.cpp" />
-    <ClCompile Include="Scene\Setup.cpp" />
-    <ClCompile Include="Scene\Title.cpp" />
-    <ClCompile Include="ScoreManager.cpp" />
-    <ClCompile Include="Time\Timer.cpp" />
+    <ClCompile Include="source\DxSystem.cpp" />
+    <ClCompile Include="source\Easing\Easing.cpp" />
+    <ClCompile Include="source\Game.cpp" />
+    <ClCompile Include="source\Input.cpp" />
+    <ClCompile Include="source\Main.cpp" />
+    <ClCompile Include="source\SceneBase\ISceneChanger.cpp" />
+    <ClCompile Include="source\SceneBase\SceneManager.cpp" />
+    <ClCompile Include="source\Scene\Menu.cpp" />
+    <ClCompile Include="source\Scene\Setup.cpp" />
+    <ClCompile Include="source\Scene\Title.cpp" />
+    <ClCompile Include="source\ScoreManager.cpp" />
+    <ClCompile Include="source\Time\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DxSystem.h" />
-    <ClInclude Include="Easing\Easing.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="SceneBase\BaseScene.h" />
-    <ClInclude Include="SceneBase\ISceneChanger.h" />
-    <ClInclude Include="SceneBase\SceneManager.h" />
-    <ClInclude Include="Scene\Menu.h" />
-    <ClInclude Include="Scene\Setup.h" />
-    <ClInclude Include="Scene\Title.h" />
-    <ClInclude Include="ScoreManager.h" />
-    <ClInclude Include="Singleton.h" />
-    <ClInclude Include="Task.h" />
-    <ClInclude Include="Time\Timer.h" />
+    <ClInclude Include="source\DxSystem.h" />
+    <ClInclude Include="source\Easing\Easing.h" />
+    <ClInclude Include="source\Game.h" />
+    <ClInclude Include="source\Input.h" />
+    <ClInclude Include="source\SceneBase\BaseScene.h" />
+    <ClInclude Include="source\SceneBase\ISceneChanger.h" />
+    <ClInclude Include="source\SceneBase\SceneManager.h" />
+    <ClInclude Include="source\Scene\Menu.h" />
+    <ClInclude Include="source\Scene\Setup.h" />
+    <ClInclude Include="source\Scene\Title.h" />
+    <ClInclude Include="source\ScoreManager.h" />
+    <ClInclude Include="source\Singleton.h" />
+    <ClInclude Include="source\Task.h" />
+    <ClInclude Include="source\Time\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
