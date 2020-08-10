@@ -2,8 +2,9 @@
 
 Setup::Setup(ISceneChanger* changer) : BaseScene(changer, DxLib::GetColor(255, 255, 255)) {
     m_myLogoImg = -1;
-    m_changeEffect.effect = ChangeEffect::Fade;
+    m_changeEffect.effect = ChangeEffect::Push;
     m_changeEffect.easing = easing::expoOut;
+    m_changeEffect.direction = 1;
 }
 
 void Setup::Initialize() {

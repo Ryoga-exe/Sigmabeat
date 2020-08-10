@@ -14,6 +14,7 @@ struct SceneChangeEffect {
     easing::easeParam easing;
     int               time_ms;
     unsigned int      color;
+    int               direction;
 };
 
 class BaseScene : public Task {
@@ -21,7 +22,7 @@ public:
     BaseScene(ISceneChanger* changer, unsigned int bgColor = 0U) {
         m_sceneChanger = changer;
         m_bgColor = bgColor;
-        m_changeEffect = { ChangeEffect::None, easing::linear, 1.0_sec, 0U };
+        m_changeEffect = { ChangeEffect::None, easing::linear, 1.0_sec, 0U, 0 };
     }
     virtual ~BaseScene() {}
     virtual void Initialize() override {}
