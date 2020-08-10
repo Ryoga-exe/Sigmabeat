@@ -14,6 +14,12 @@ public:
     void ChangeScene(Scene NextScene) override;
 
 private:
+    bool DrawSceneChangeEffect(bool isQuit);
+
     std::vector<BaseScene*> m_scenes;
     Scene m_currentScene, m_nextScene;
+    bool m_hasFinishedChanging;
+
+    Timer m_timer;
+    int   m_changedTime;
 };

@@ -125,3 +125,7 @@ int  DrawBg(unsigned int color) {
     RectSize winSize = DxSystem::Inst()->GetWindowSize();
     return DxLib::DrawBox(0, 0, winSize.width, winSize.height, color, TRUE);
 }
+
+int  operator""_sec(const long double second) {
+    return (int)second * 1000;
+}

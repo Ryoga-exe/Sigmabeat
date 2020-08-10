@@ -46,3 +46,5 @@ private:
 };
 
 int  DrawBg(unsigned int color);
+
+int  operator""_sec(const long double second);
