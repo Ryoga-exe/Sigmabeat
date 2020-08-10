@@ -127,5 +127,5 @@ int  DrawBg(unsigned int color) {
 }
 
 int  operator""_sec(const long double second) {
-    return (int)second * 1000;
+    return (int)(second * 1000.0);
 }

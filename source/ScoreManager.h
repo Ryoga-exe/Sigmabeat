@@ -16,7 +16,7 @@ struct ScoreInfo_t{
 	std::string Artist;
 	std::string ScorePath;
 	std::string MusicPath;
-	std::string ImagePath = "../Data/Image/sigmabeat.png";
+	std::string ImagePath = "Data/Image/sigmabeat.png";
 	std::string URL;
 
 	
