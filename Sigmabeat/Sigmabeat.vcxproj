@@ -161,6 +161,7 @@
     <ClCompile Include="Scene\Menu.cpp" />
     <ClCompile Include="Scene\Setup.cpp" />
     <ClCompile Include="Scene\Title.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Time\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +175,7 @@
     <ClInclude Include="Scene\Menu.h" />
     <ClInclude Include="Scene\Setup.h" />
     <ClInclude Include="Scene\Title.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="Time\Timer.h" />
