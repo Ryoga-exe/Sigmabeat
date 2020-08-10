@@ -387,3 +387,6 @@ MigrationBackup/
 
 # DxLib
 Log.txt
+
+# Sigmabeat
+Scores/
