@@ -1,0 +1,29 @@
+#Title     Sample Text
+#Artist    Sample Artist
+#MusicPath Music/sample.wav
+#ImagePath Image/sample.png
+#URL       https://github.com/Ryoga-exe/Sigmabeat
+#DemoStart 2000
+#SongVol   100
+#SEVol     0
+#OffSet    -100
+#BPM       160
+
+#Level     3, 5, 7
+
+// Easy
+{
+    
+}
+
+// Normal
+{
+    
+}
+
+// Hard
+{
+    
+}
+
+// Expert
