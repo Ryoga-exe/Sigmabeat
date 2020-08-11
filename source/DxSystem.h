@@ -4,6 +4,8 @@
 #include "Input.h"
 #include "Time/Timer.h"
 #include "Easing/Easing.h"
+#include "Color/Color.h"
+#include "TString/TString.h"
 
 struct CoordI {
     int x, y;
@@ -45,6 +47,7 @@ private:
     RectSize m_windowPos;
 };
 
-int  DrawBg(unsigned int color);
-
 int  operator""_sec(const long double second);
+int  DrawBg(unsigned int color);
+int  GetFileNum(const TCHAR* path, bool doCountDir = false);
+bool FileRead_isBr(const int* fileHandle, TCHAR ch);

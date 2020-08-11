@@ -165,6 +165,7 @@
     <ClCompile Include="source\Time\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Color\Color.h" />
     <ClInclude Include="source\DxSystem.h" />
     <ClInclude Include="source\Easing\Easing.h" />
     <ClInclude Include="source\Game.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="source\Singleton.h" />
     <ClInclude Include="source\Task.h" />
     <ClInclude Include="source\Time\Timer.h" />
+    <ClInclude Include="source\TString\TString.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
