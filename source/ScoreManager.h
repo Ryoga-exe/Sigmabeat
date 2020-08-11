@@ -78,7 +78,7 @@ private:
 	bool SetScorePath();
 	bool SkipSpace(const int* fileHandle);
 	bool ReadTag(std::tstring &str, const int* fileHandle);
-	bool ReadValue(std::string* buffer, const int* fileHandle);
+	bool ReadValue(std::tstring &str, const int* fileHandle);
 	void ReplaceTagName(std::string& replacedStr);
 	void GetTagValue(const int* fileHandle, std::string tagName, std::string valueBuf, int currentNum);
 

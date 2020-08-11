@@ -74,11 +74,12 @@ bool ScoreManager::Finalize() {
 }
 
 bool ScoreManager::SkipSpace(const int* fileHandle) {
-    while (DxLib::FileRead_eof(*fileHandle) == 0) {
-        TCHAR charBuffer = DxLib::FileRead_getc(*fileHandle);
-        if (FileRead_isBr(fileHandle, charBuffer)) return true;
-        else if (charBuffer != ' ' && charBuffer != '\t') {
-            FileRead_seek(*fileHandle, -1, SEEK_CUR);
+    if (fileHandle == nullptr || *fileHandle == NULL) return true;
+    while (DxLib::FileRead_eof(*fileHandle) == NULL) {
+        TCHAR chbuf = DxLib::FileRead_getc(*fileHandle);
+        if (FileRead_isBr(fileHandle, chbuf)) return true;
+        else if (chbuf != ' ' && chbuf != '\t') {
+            DxLib::FileRead_seek(*fileHandle, -1, SEEK_CUR);
             break;
         }
     }
@@ -95,6 +96,15 @@ bool ScoreManager::ReadTag(std::tstring &str, const int* fileHandle) {
             return true;
         }
         str += tagBuffer;
+    }
+    return false;
+}
+bool ScoreManager::ReadValue(std::tstring &str, const int* fileHandle) {
+    if (fileHandle == nullptr || *fileHandle == NULL) return true;
+    while (DxLib::FileRead_eof(*fileHandle) == NULL) {
+        TCHAR chbuf = DxLib::FileRead_getc(*fileHandle);
+        if (FileRead_isBr(fileHandle, chbuf)) break;
+        else str += chbuf;
     }
     return false;
 }
@@ -164,6 +174,9 @@ bool ScoreManager::LoadScoreInfo() {
             if (ReadTag(tagName, &fileHandle)) continue;
             if (SkipSpace(&fileHandle)) continue;
 
+            std::tstring valueBuffer;
+
+            ReadValue(valueBuffer, &fileHandle);
 
         }
 
