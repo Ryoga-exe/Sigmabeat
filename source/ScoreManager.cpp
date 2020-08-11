@@ -79,7 +79,7 @@ bool ScoreManager::SkipSpace(const int* fileHandle) {
     while (DxLib::FileRead_eof(*fileHandle) == NULL) {
         TCHAR chbuf = DxLib::FileRead_getc(*fileHandle);
         if (FileRead_isBr(fileHandle, chbuf)) return true;
-        else if (chbuf != ' ' && chbuf != '\t') {
+        else if (chbuf != L' ' && chbuf != L'\t') {
             DxLib::FileRead_seek(*fileHandle, -1, SEEK_CUR);
             break;
         }
@@ -90,7 +90,7 @@ bool ScoreManager::ReadTag(std::tstring &str, const int* fileHandle) {
     if (fileHandle == nullptr || *fileHandle == NULL) return true;
     while (DxLib::FileRead_eof(*fileHandle) == NULL) {
         TCHAR tagBuffer = toupper(DxLib::FileRead_getc(*fileHandle));
-        if (tagBuffer == '\0' || tagBuffer == ' ' || tagBuffer == '\t') {
+        if (tagBuffer == L'\0' || tagBuffer == L' ' || tagBuffer == L'\t') {
             break;
         }
         else if (FileRead_isBr(fileHandle, tagBuffer)) {
@@ -177,8 +177,26 @@ void ScoreManager::GetTagValue(const int* fileHandle, std::tstring &tagName, std
     }
     else if (tagName == L"LEVEL") {
         std::tstring numBuf;
-        int lvNum = 0;
-        // for (size_t i = 0; (i <= valueBuf.length() && lvNum < ScoreInfo_t::LEVEL_NUM))
+        int lvIndex = 0;
+        for (std::size_t i = 0; (i <= tagValue.length() && lvIndex < static_cast<std::size_t>(ScoreInfo_t::Levels::LEVEL_NUM)) && DxLib::FileRead_eof(*fileHandle) == NULL; i++) {
+            if (tagValue[i] >= L'0' && tagValue[i] <= L'9') {
+                numBuf += tagValue[i];
+            }
+            else if (tagValue[i] == L' ' || tagValue[i] == L'\t') {
+                continue;
+            }
+            else {
+                m_scoreFiles[index].level[lvIndex] = TagValueToI(numBuf);
+                numBuf.clear();
+                lvIndex++;
+            }
+        }
+    }
+    else if (tagName == L"BGNUM") {
+        m_scoreFiles[index].bgNum = TagValueToI(tagValue);
+    }
+    else if (tagName == L"BGCOLOR") {
+
     }
 }
 
@@ -205,7 +223,7 @@ bool ScoreManager::LoadScoreInfo() {
             TCHAR charBuffer = DxLib::FileRead_getc(fileHandle);
 
             // <comment>
-            if (charBuffer == '/') {
+            if (charBuffer == L'/') {
                 if (isComment) {          // '/' Ç™ìÒÇ¬ë±Ç≠Ç∆Ç´
                     while (FileRead_isBr(&fileHandle, DxLib::FileRead_getc(fileHandle)) && DxLib::FileRead_eof(fileHandle) == NULL) {
                         isComment = false;
@@ -215,13 +233,13 @@ bool ScoreManager::LoadScoreInfo() {
                 else isComment = true;   // '/' Ç™àÍâÒñ⁄Ç…èoÇƒÇ´ÇΩÇ∆Ç´
                 continue;
             }
-            else if (charBuffer == '*') {
+            else if (charBuffer == L'*') {
                 if (isComment) {         // "/*" Ç™èoÇƒÇ´ÇΩ
                     bool isEndOfComment = false;
                     while (DxLib::FileRead_eof(fileHandle) == NULL) {
                         charBuffer = DxLib::FileRead_getc(fileHandle);
-                        if (charBuffer == '*') isEndOfComment = true;
-                        else if (isEndOfComment && charBuffer == '/') {
+                        if (charBuffer == L'*') isEndOfComment = true;
+                        else if (isEndOfComment && charBuffer == L'/') {
                             isComment = false;
                             break;
                         }
@@ -233,12 +251,12 @@ bool ScoreManager::LoadScoreInfo() {
             else isComment = false;
             // </comment>
 
-            if (charBuffer == '{') {
+            if (charBuffer == L'{') {
                 m_scoreFiles[i].noteStartSeek = DxLib::FileRead_tell(fileHandle);
                 break;
             }
-            if (charBuffer == ' ' || charBuffer == '\t') continue;
-            if (charBuffer != '#') {
+            if (charBuffer == L' ' || charBuffer == L'\t') continue;
+            if (charBuffer != L'#') {
                 while (FileRead_isBr(&fileHandle, DxLib::FileRead_getc(fileHandle)) && DxLib::FileRead_eof(fileHandle) == NULL);
                 continue;
             }

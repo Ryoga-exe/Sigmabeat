@@ -146,10 +146,10 @@ int GetFileNum(const TCHAR* path, bool doCountDir) {
 }
 bool FileRead_isBr(const int* fileHandle, TCHAR ch) {
     if (fileHandle == nullptr || *fileHandle == NULL) return false;
-    if (ch == '\n') return true; // LF
-    if (ch == '\r') {            // CR or CRLF
+    if (ch == L'\n') return true; // LF
+    if (ch == L'\r') {            // CR or CRLF
         TCHAR buffer = DxLib::FileRead_getc(*fileHandle);
-        if (buffer == '\n') return true; // CRLF
+        if (buffer == L'\n') return true; // CRLF
         else {
             DxLib::FileRead_seek(*fileHandle, -1, SEEK_CUR);  // CR
             return true;
