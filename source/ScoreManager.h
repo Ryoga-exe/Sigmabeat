@@ -80,7 +80,8 @@ private:
 	bool ReadTag(std::tstring &str, const int* fileHandle);
 	bool ReadValue(std::tstring &str, const int* fileHandle);
 	void ReplaceTagName(std::string& replacedStr);
-	void GetTagValue(const int* fileHandle, std::string tagName, std::string valueBuf, int currentNum);
+	int  TagValueToI(const std::tstring& str, bool allowMinus = false);
+	void GetTagValue(const int* fileHandle, std::tstring &tagName, std::tstring &tagValue, int index);
 
 	bool LoadJacketImage(int currentNum);
 

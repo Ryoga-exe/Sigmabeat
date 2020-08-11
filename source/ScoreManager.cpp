@@ -1,4 +1,5 @@
 #include "ScoreManager.h"
+#include <stdexcept>
 
 ScoreManager::ScoreManager() : m_hasInitialized(false), m_isError(false), m_hasLoadedScore(false),
 m_fileNum(0), m_defaultImageHandle(-1) {
@@ -108,6 +109,79 @@ bool ScoreManager::ReadValue(std::tstring &str, const int* fileHandle) {
     }
     return false;
 }
+int  ScoreManager::TagValueToI(const std::tstring& str, bool allowMinus) {
+    int ret = 0;
+    try {
+        ret = std::stoi(str);
+        if (!allowMinus && ret < 0) {
+            ret = 0;
+        }
+    }
+    catch (const std::invalid_argument) {
+        ret = 0;
+    }
+    catch (const std::out_of_range) {
+        ret = 0;
+    }
+    return ret;
+}
+void ScoreManager::GetTagValue(const int* fileHandle, std::tstring &tagName, std::tstring &tagValue, int index) {
+    if (tagName == L"TITLE") {
+        m_scoreFiles[index].title.clear();
+        m_scoreFiles[index].title = tagValue;
+    }
+    else if (tagName == L"ARTIST") {
+        m_scoreFiles[index].artist.clear();
+        m_scoreFiles[index].artist = tagValue;
+    }
+    else if (tagName == L"MUSIC") {
+        m_scoreFiles[index].musicPath.clear();
+        m_scoreFiles[index].musicPath = tagValue;
+    }
+    else if (tagName == L"IMAGE") {
+        m_scoreFiles[index].imagePath.clear();
+        m_scoreFiles[index].imagePath = tagValue;
+    }
+    else if (tagName == L"URL") {
+        m_scoreFiles[index].url.clear();
+        m_scoreFiles[index].url = tagValue;
+    }
+    else if (tagName == L"DEMOSTART") {
+        m_scoreFiles[index].musicPrevPos = TagValueToI(tagValue);
+    }
+    else if (tagName == L"OFFSET") {
+        m_scoreFiles[index].offset = TagValueToI(tagValue, true);
+    }
+    else if (tagName == L"MUSICVOL") {
+        int buffer = TagValueToI(tagValue);
+        m_scoreFiles[index].songVol = buffer > 100 ? 100 : buffer;
+    }
+    else if (tagName == L"SEVOL") {
+        int buffer = TagValueToI(tagValue);
+        m_scoreFiles[index].SEVol = buffer > 100 ? 100 : buffer;
+    }
+    else if (tagName == L"BPM") {
+        m_scoreFiles[index].BPM = TagValueToI(tagValue);
+    }
+    else if (tagName == L"EASY") {
+        m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::EASY)] = TagValueToI(tagValue);
+    }
+    else if (tagName == L"NORMAL") {
+        m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::NORMAL)] = TagValueToI(tagValue);
+    }
+    else if (tagName == L"HARD") {
+        m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::HARD)] = TagValueToI(tagValue);
+    }
+    else if (tagName == L"EXPERT") {
+        m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::EXPERT)] = TagValueToI(tagValue);
+    }
+    else if (tagName == L"LEVEL") {
+        std::tstring numBuf;
+        int lvNum = 0;
+        // for (size_t i = 0; (i <= valueBuf.length() && lvNum < ScoreInfo_t::LEVEL_NUM))
+    }
+}
+
 
 bool ScoreManager::LoadScoreInfo() {
     if (m_isError)         return true;
@@ -177,6 +251,8 @@ bool ScoreManager::LoadScoreInfo() {
             std::tstring valueBuffer;
 
             ReadValue(valueBuffer, &fileHandle);
+
+            
 
         }
 
