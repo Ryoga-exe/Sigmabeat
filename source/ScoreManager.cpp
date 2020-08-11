@@ -161,10 +161,8 @@ bool ScoreManager::LoadScoreInfo() {
 
             std::tstring tagName;
 
-            if (ReadTag(tagName, &fileHandle)) {
-                continue;
-            }
-
+            if (ReadTag(tagName, &fileHandle)) continue;
+            if (SkipSpace(&fileHandle)) continue;
 
 
         }
