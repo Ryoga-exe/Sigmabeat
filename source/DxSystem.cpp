@@ -145,7 +145,7 @@ int GetFileNum(const TCHAR* path, bool doCountDir) {
     return fileNum;
 }
 bool FileRead_isBr(const int* fileHandle, TCHAR ch) {
-    if (fileHandle == nullptr || *fileHandle == 0) return false;
+    if (fileHandle == nullptr || *fileHandle == NULL) return false;
     if (ch == '\n') return true; // LF
     if (ch == '\r') {            // CR or CRLF
         TCHAR buffer = DxLib::FileRead_getc(*fileHandle);

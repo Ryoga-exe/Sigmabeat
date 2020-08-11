@@ -73,22 +73,31 @@ bool ScoreManager::Finalize() {
     return false;
 }
 
-//bool ScoreManager::ReadTag(std::string* buffer, const int* fileHandle) {
-//    while (FileRead_eof(*fileHandle) == 0) {
-//        TCHAR tagNameBuf = toupper(FileRead_getc(*fileHandle));
-//        if (tagNameBuf == '\0' || tagNameBuf == ' ' || tagNameBuf == '\t') {
-//            break;
-//        }
-//        else if (tagNameBuf == '\r' || tagNameBuf == '\n') {
-//            if (FileRead_getc(*fileHandle) != '\n') {
-//                FileRead_seek(*fileHandle, -1, SEEK_CUR);
-//            }
-//            return true;
-//        }
-//        *buffer += tagNameBuf;
-//    }
-//    return false;
-//}
+bool ScoreManager::SkipSpace(const int* fileHandle) {
+    while (DxLib::FileRead_eof(*fileHandle) == 0) {
+        TCHAR charBuffer = DxLib::FileRead_getc(*fileHandle);
+        if (FileRead_isBr(fileHandle, charBuffer)) return true;
+        else if (charBuffer != ' ' && charBuffer != '\t') {
+            FileRead_seek(*fileHandle, -1, SEEK_CUR);
+            break;
+        }
+    }
+    return false;
+}
+bool ScoreManager::ReadTag(std::tstring &str, const int* fileHandle) {
+    if (fileHandle == nullptr || *fileHandle == NULL) return true;
+    while (DxLib::FileRead_eof(*fileHandle) == NULL) {
+        TCHAR tagBuffer = toupper(DxLib::FileRead_getc(*fileHandle));
+        if (tagBuffer == '\0' || tagBuffer == ' ' || tagBuffer == '\t') {
+            break;
+        }
+        else if (FileRead_isBr(fileHandle, tagBuffer)) {
+            return true;
+        }
+        str += tagBuffer;
+    }
+    return false;
+}
 
 bool ScoreManager::LoadScoreInfo() {
     if (m_isError)         return true;
@@ -151,6 +160,12 @@ bool ScoreManager::LoadScoreInfo() {
             }
 
             std::tstring tagName;
+
+            if (ReadTag(tagName, &fileHandle)) {
+                continue;
+            }
+
+
 
         }
 
