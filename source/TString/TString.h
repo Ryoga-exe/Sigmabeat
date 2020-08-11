@@ -3,5 +3,5 @@
 #include <string>
 
 namespace std {
-    typedef std::basic_string<TCHAR> tstring;
+    using tstring = std::basic_string<TCHAR, char_traits<TCHAR>, allocator<TCHAR> >;
 }
