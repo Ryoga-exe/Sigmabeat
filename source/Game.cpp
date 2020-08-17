@@ -4,11 +4,16 @@ bool Game::Initialize(const TCHAR* windowTitle) {
     DxSystem::Inst()->SetWindowSize({ 1280, 720 });
     if (DxSystem::Inst()->Initialize(windowTitle)) return true;
     m_sceneMgr.Initialize();
+
+    if (ScoreManager::Inst()->Initialize()) return true;
+    if (ScoreManager::Inst()->LoadScoreInfo()) return true;
+
     return false;
 }
 bool Game::Finalize() {
     m_sceneMgr.Finalize();
     DxSystem::Inst()->Finalize();
+    ScoreManager::Inst()->Finalize();
     return false;
 }
 void Game::ProcessLoop() {
@@ -33,4 +38,5 @@ bool Game::Update() {
 }
 void Game::Draw() {
     m_sceneMgr.Draw();
+    ScoreManager::Inst()->DrawScoreInfo(0);
 }

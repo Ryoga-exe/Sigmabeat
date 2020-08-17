@@ -1,6 +1,7 @@
 #pragma once
 #include "DxSystem.h"
 #include "SceneBase/SceneManager.h"
+#include "ScoreManager.h"
 
 class Game {
 public:

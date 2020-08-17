@@ -23,7 +23,7 @@ void Menu::Update() {
 
 void Menu::Draw() {
     BaseScene::Draw();
-    DrawString(0, 0, L"Scene : Menu", GetColor(255, 255, 255));
+    DrawString(0, 0, u8"Scene : Menu", GetColor(255, 255, 255));
 
-    DrawFormatString(0, 20, 0xffffff, L"%d", m_count);
+    DrawFormatString(0, 20, 0xffffff, u8"%d", m_count);
 }

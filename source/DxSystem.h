@@ -5,7 +5,6 @@
 #include "Time/Timer.h"
 #include "Easing/Easing.h"
 #include "Color/Color.h"
-#include "TString/TString.h"
 
 struct CoordI {
     int x, y;

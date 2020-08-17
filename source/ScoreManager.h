@@ -2,8 +2,8 @@
 #include "DxSystem.h"
 #include <string>
 
-#define SCORE_EXTENSION L".sgm"
-#define SCORE_DIRECTORY L"Scores/*.sgm"
+#define SCORE_EXTENSION u8".sgm"
+#define SCORE_DIRECTORY u8"Scores/*.sgm"
 
 struct ScoreInfo_t{
 	enum class Levels {
@@ -15,12 +15,12 @@ struct ScoreInfo_t{
 	};
 
 	bool isError = false;
-	std::tstring title;
-	std::tstring artist;
-	std::tstring scorePath;
-	std::tstring musicPath;
-	std::tstring imagePath = L"Data/Image/sigmabeat.png";
-	std::tstring url;
+	std::string title;
+	std::string artist;
+	std::string scorePath;
+	std::string musicPath;
+	std::string imagePath = u8"Data/Image/sigmabeat.png";
+	std::string url;
 
 
 	int         musicPrevPos = 0;
@@ -72,16 +72,16 @@ public:
 	int  DrawArtistNameToHandle(int x, int y, unsigned int color, int fontHandle, unsigned int number, unsigned int edgeColor = 0U, int verticalFlag = FALSE);
 	int  DrawArtistNameToHandleCenter(int y, unsigned int color, int fontHandle, unsigned int number, unsigned int edgeColor = 0U, int verticalFlag = FALSE);
 
-	void DrawScoreInfo(unsigned int number);
+	void DrawScoreInfo(unsigned int index);
 
 private:
 	bool SetScorePath();
 	bool SkipSpace(const int* fileHandle);
-	bool ReadTag(std::tstring &str, const int* fileHandle);
-	bool ReadValue(std::tstring &str, const int* fileHandle);
+	bool ReadTag(std::string &str, const int* fileHandle);
+	bool ReadValue(std::string &str, const int* fileHandle);
 	void ReplaceTagName(std::string& replacedStr);
-	int  TagValueToI(const std::tstring& str, bool allowMinus = false);
-	void GetTagValue(const int* fileHandle, std::tstring &tagName, std::tstring &tagValue, int index);
+	int  TagValueToI(const std::string& str, bool allowMinus = false);
+	void GetTagValue(const int* fileHandle, std::string &tagName, std::string &tagValue, int index);
 
 	bool LoadJacketImage(int currentNum);
 
@@ -89,7 +89,7 @@ private:
 	bool m_hasInitialized, m_isError, m_hasLoadedScore;
 	int  m_fileNum;
 	int  m_defaultImageHandle;
-	const TCHAR* m_defaultImagePath = L"Data/Image/sigmabeat.png";
+	const TCHAR* m_defaultImagePath = u8"Data/Image/sigmabeat.png";
 	ScoreInfo_t* m_scoreFiles = nullptr;
 };
 

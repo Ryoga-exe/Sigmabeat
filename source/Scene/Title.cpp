@@ -8,7 +8,7 @@ Title::Title(ISceneChanger* changer) : BaseScene(changer, DxLib::GetColor(255, 2
 }
 
 void Title::Initialize() {
-    m_logo = DxLib::LoadGraph(L"Data/Image/logo.png");
+    m_logo = DxLib::LoadGraph(u8"Data/Image/logo.png");
 }
 
 void Title::Finalize() {

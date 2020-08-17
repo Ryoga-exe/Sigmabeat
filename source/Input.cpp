@@ -18,7 +18,7 @@ bool Keyboard::Update(bool doDrawKeyCode) {
             }
             m_keyPressingCount[i]++;
             if (doDrawKeyCode) {
-                DxLib::DrawFormatString(0, 16 * counting, 0xffffff, L"%d", i);
+                DxLib::DrawFormatString(0, 16 * counting, 0xffffff, u8"%d", i);
                 counting++;
             }
         }

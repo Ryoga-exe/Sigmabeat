@@ -1,7 +1,7 @@
 #include "DxSystem.h"
 
 void ErrMsgBx(const TCHAR* errorMsg) {
-    MessageBox(NULL, errorMsg, L"ERROR", MB_OK | MB_ICONERROR);
+    MessageBox(NULL, errorMsg, "ERROR", MB_OK | MB_ICONERROR);
 }
 
 DxSystem::DxSystem() : m_hasInitialized(false), m_isFullscreen(false), m_enableChangeSize(true),
@@ -33,11 +33,11 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
     
 
     if (DxLib::DxLib_Init() != 0) {
-        ErrMsgBx(L"エラーが発生しました。\nウィンドウの生成に失敗しました。"); // language
+        ErrMsgBx("エラーが発生しました。\nウィンドウの生成に失敗しました。"); // language
         return true;
     }
     if (DxLib::SetDrawScreen(DX_SCREEN_BACK) != 0) {
-        ErrMsgBx(L"エラーが発生しました。\nウィンドウの設定に失敗しました。");
+        ErrMsgBx("エラーが発生しました。\nウィンドウの設定に失敗しました。");
         DxLib::DxLib_End();
         return true;
     }
@@ -128,7 +128,7 @@ int  DrawBg(unsigned int color) {
     RectSize winSize = DxSystem::Inst()->GetWindowSize();
     return DxLib::DrawBox(0, 0, winSize.width, winSize.height, color, TRUE);
 }
-int GetFileNum(const TCHAR* path, bool doCountDir) {
+int  GetFileNum(const TCHAR* path, bool doCountDir) {
     int fileNum = 0;
     FILEINFO fileInfo;
     DWORD_PTR findHandle = DxLib::FileRead_findFirst(path, &fileInfo);
@@ -146,10 +146,10 @@ int GetFileNum(const TCHAR* path, bool doCountDir) {
 }
 bool FileRead_isBr(const int* fileHandle, TCHAR ch) {
     if (fileHandle == nullptr || *fileHandle == NULL) return false;
-    if (ch == L'\n') return true; // LF
-    if (ch == L'\r') {            // CR or CRLF
+    if (ch == u8'\n') return true; // LF
+    if (ch == u8'\r') {            // CR or CRLF
         TCHAR buffer = DxLib::FileRead_getc(*fileHandle);
-        if (buffer == L'\n') return true; // CRLF
+        if (buffer == u8'\n') return true; // CRLF
         else {
             DxLib::FileRead_seek(*fileHandle, -1, SEEK_CUR);  // CR
             return true;
