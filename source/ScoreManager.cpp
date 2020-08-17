@@ -254,7 +254,6 @@ void ScoreManager::GetTagValue(const int* fileHandle, std::string &tagName, std:
     }
 }
 
-
 bool ScoreManager::LoadScoreInfo() {
     if (m_isError)         return true;
     if (!m_hasInitialized) return true;

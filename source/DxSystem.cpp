@@ -8,7 +8,6 @@ DxSystem::DxSystem() : m_hasInitialized(false), m_isFullscreen(false), m_enableC
 m_styleMode(7), m_windowSize({640, 480}), m_isMaxSize(false) {
     DxLib::SetOutApplicationLogValidFlag(FALSE);         // àÍî‘êÊÇ…çsÇ§
     DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); // è„ÇÃéüÇ…çsÇ§
-    DxLib::SetUseCharSet(DX_CHARSET_UTF8);
 
     DxLib::GetDefaultState(&m_desktopSize.width, &m_desktopSize.height, &m_colorDepth);
     DxLib::SetWindowStyleMode(m_styleMode);
