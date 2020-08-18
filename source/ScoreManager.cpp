@@ -278,7 +278,7 @@ bool ScoreManager::LoadScoreInfo() {
             // <comment>
             if (charBuffer == u8'/') {
                 if (isComment) {          // '/' ‚ª“ñ‚Â‘±‚­‚Æ‚«
-                    while (FileRead_isBr(&fileHandle, DxLib::FileRead_getc(fileHandle)) && DxLib::FileRead_eof(fileHandle) == NULL) {
+                    while (!FileRead_isBr(&fileHandle, DxLib::FileRead_getc(fileHandle)) && DxLib::FileRead_eof(fileHandle) == NULL) {
                         isComment = false;
                         continue;
                     }
@@ -310,7 +310,8 @@ bool ScoreManager::LoadScoreInfo() {
             }
             if (charBuffer == u8' ' || charBuffer == u8'\t') continue;
             if (charBuffer != u8'#') {
-                while (FileRead_isBr(&fileHandle, DxLib::FileRead_getc(fileHandle)) && DxLib::FileRead_eof(fileHandle) == NULL);
+                // DxLib::FileRead_seek(fileHandle, -1, SEEK_CUR);
+                while (!FileRead_isBr(&fileHandle, DxLib::FileRead_getc(fileHandle)) && DxLib::FileRead_eof(fileHandle) == NULL);
                 continue;
             }
 
