@@ -2,10 +2,9 @@
 #Artist    Sample Artist
 #Music     Music/sample.wav
 #Image     Image/sample.png
-
 #URL       https://github.com/Ryoga-exe/Sigmabeat
 #DemoStart 3000
-#MusicVol  80
+#MusicVol  100
 #SEVol     0
 #OffSet    -100
 #BPM       160
