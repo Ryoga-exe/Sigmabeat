@@ -389,4 +389,4 @@ MigrationBackup/
 Log.txt
 
 # Sigmabeat
-Scores
+/[Ss]cores/
