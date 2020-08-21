@@ -11,5 +11,4 @@ public:
     void Changed() override;
 
 private:
-    int m_count;
 };

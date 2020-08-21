@@ -1,6 +1,9 @@
 #include "Menu.h"
 
-Menu::Menu(ISceneChanger* changer) : BaseScene(changer), m_count(0) {
+Menu::Menu(ISceneChanger* changer) : BaseScene(changer, DxLib::GetColor(255, 255, 255)) {
+    m_changeEffect.effect = ChangeEffect::Fade;
+    m_changeEffect.easing = easing::expoOut;
+    m_changeEffect.color = DxLib::GetColor(255, 255, 255);
 }
 
 void Menu::Initialize() {
@@ -13,17 +16,12 @@ void Menu::Changed() {
 }
 
 void Menu::Update() {
-    if (CheckHitKey(KEY_INPUT_1) != 0) {
+    if (Keyboard::Inst()->GetStatus(KEY(ESCAPE)) == Keyboard::State::Pressed) {
         m_sceneChanger->ChangeScene(Scene::Title);
-    }
-    if (CheckHitKey(KEY_INPUT_A) != 0) {
-        m_count++;
     }
 }
 
 void Menu::Draw() {
     BaseScene::Draw();
-    DrawString(0, 0, u8"Scene : Menu", GetColor(255, 255, 255));
-
-    DrawFormatString(0, 20, 0xffffff, u8"%d", m_count);
+    
 }
