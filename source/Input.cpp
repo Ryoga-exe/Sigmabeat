@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include "Input.h"
-#include <math.h>
+#include <cmath>
 
 Keyboard::Keyboard() {
     memset(m_keyPressingCount, 0, sizeof(m_keyPressingCount));
@@ -111,7 +111,7 @@ bool Mouse::IsMouseHoverRect(int x1, int y1, int x2, int y2) {
 }
 
 bool Mouse::IsMouseHoverCircle(int x, int y, int r) {
-    if (r > sqrt(pow(m_x - x, 2) + pow(m_y - y, 2))) {
+    if (r > sqrt(std::pow(m_x - x, 2) + std::pow(m_y - y, 2))) {
         return true;
     }
     return false;
