@@ -1,5 +1,6 @@
 #include "ScoreManager.h"
 #include <stdexcept>
+#include <algorithm>
 
 ScoreManager::ScoreManager() : m_hasInitialized(false), m_isError(false), m_hasLoadedScore(false),
 m_fileNum(0), m_defaultImageHandle(-1) {
@@ -13,7 +14,7 @@ bool ScoreManager::IsAvailableIndex(unsigned int index) {
     if (m_isError || m_fileNum == 0 || index > (unsigned)m_fileNum || m_scoreFiles == nullptr) {
         return false;
     }
-    return true;
+    return !m_scoreFiles[index].isError;
 }
 
 bool ScoreManager::SetScorePath() {
@@ -179,6 +180,9 @@ void ScoreManager::GetTagValue(const int* fileHandle, std::string &tagName, std:
     else if (tagName == u8"BPM") {
         m_scoreFiles[index].BPM = TagValueToI(tagValue);
     }
+    else if (tagName == u8"SORT") {
+        m_scoreFiles[index].sortOrder = TagValueToI(tagValue, true);
+    }
     else if (tagName == u8"EASY") {
         m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::EASY)] = TagValueToI(tagValue);
     }
@@ -287,6 +291,7 @@ bool ScoreManager::LoadScoreInfo() {
             m_scoreFiles[i].isError = true;
             continue;
         }
+        m_scoreFiles[i].sortOrder = i;
         bool isComment = false;
         while (DxLib::FileRead_eof(fileHandle) == NULL) {
             TCHAR charBuffer = DxLib::FileRead_getc(fileHandle);
@@ -349,6 +354,9 @@ bool ScoreManager::LoadScoreInfo() {
 
         LoadJacketImage(i);
     }
+
+    // std::sort(m_scoreFiles.begin(), m_scoreFiles.end(), [](const m_scoreFiles& a, const m_scoreFiles& b) {return a.sortOrder < b.sortOrder; });
+
     m_hasLoadedScore = true;
     return false;
 }
@@ -363,7 +371,26 @@ void ScoreManager::DrawJacketImage(int x, int y, unsigned int index, int transFl
         }
     }
 }
-
+void ScoreManager::DrawExtendJacketImage(int x1, int y1, int x2, int y2, unsigned int index, int transFlag) {
+    if (IsAvailableIndex(index)) {
+        if (m_scoreFiles[index].imageHandle == -1) {
+            DxLib::DrawExtendGraph(x1, y1, x2, y2, m_defaultImageHandle, TRUE);
+        }
+        else {
+            DxLib::DrawExtendGraph(x1, y1, x2, y2, m_scoreFiles[index].imageHandle, transFlag);
+        }
+    }
+}
+void ScoreManager::DrawExtendJacketImageF(float x1f, float y1f, float x2f, float y2f, unsigned int index, int transFlag) {
+    if (IsAvailableIndex(index)) {
+        if (m_scoreFiles[index].imageHandle == -1) {
+            DxLib::DrawExtendGraphF(x1f, y1f, x2f, y2f, m_defaultImageHandle, TRUE);
+        }
+        else {
+            DxLib::DrawExtendGraphF(x1f, y1f, x2f, y2f, m_scoreFiles[index].imageHandle, transFlag);
+        }
+    }
+}
 void ScoreManager::DrawScoreInfo(unsigned int index) {
     if (IsAvailableIndex(index)) {
         DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
