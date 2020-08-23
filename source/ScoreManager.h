@@ -22,7 +22,6 @@ struct ScoreInfo_t{
 	std::string imagePath = u8"Data/Image/sigmabeat.png";
 	std::string url;
 
-
 	int         musicPrevPos = 0;
 	int         offset = 0;
 	int         songVol = 100;
@@ -64,7 +63,7 @@ public:
 	int  GetScoreNum();
 	ScoreInfo_t GetFileInfo(unsigned int number);
 
-	void DrawJacketImage(int x, int y, unsigned int number, int transFlag);
+	void DrawJacketImage(int x, int y, unsigned int index, int transFlag = FALSE);
 	void DrawExtendJacketImage(int x1, int y1, int x2, int y2, unsigned int number, int transFlag);
 	void DrawExtendJacketImageF(float x1f, float y1f, float x2f, float y2f, unsigned int number, int transFlag);
 	int  DrawMusicTitleToHandle(int x, int y, unsigned int color, int fontHandle, unsigned int number, unsigned int edgeColor = 0U, int verticalFlag = FALSE);
@@ -75,6 +74,7 @@ public:
 	void DrawScoreInfo(unsigned int index);
 
 private:
+	bool IsAvailableIndex(unsigned int index);
 	bool SetScorePath();
 	bool SkipSpace(const int* fileHandle);
 	bool ReadTag(std::string &str, const int* fileHandle);
@@ -83,7 +83,7 @@ private:
 	int  TagValueToI(const std::string& str, bool allowMinus = false);
 	void GetTagValue(const int* fileHandle, std::string &tagName, std::string &tagValue, int index);
 
-	bool LoadJacketImage(int currentNum);
+	bool LoadJacketImage(int index);
 
 private:
 	bool m_hasInitialized, m_isError, m_hasLoadedScore;

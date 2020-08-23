@@ -9,6 +9,13 @@ ScoreManager::~ScoreManager() {
     Finalize();
 }
 
+bool ScoreManager::IsAvailableIndex(unsigned int index) {
+    if (m_isError || m_fileNum == 0 || index > (unsigned)m_fileNum || m_scoreFiles == nullptr) {
+        return false;
+    }
+    return true;
+}
+
 bool ScoreManager::SetScorePath() {
     FILEINFO fileInfo;
     DWORD_PTR findHandle = DxLib::FileRead_findFirst(SCORE_DIRECTORY, &fileInfo);
@@ -74,6 +81,15 @@ bool ScoreManager::Finalize() {
     return false;
 }
 
+bool ScoreManager::LoadJacketImage(int index) {
+    if (!IsAvailableIndex(index)) return true;
+    if (m_scoreFiles[index].imagePath.empty() || m_scoreFiles[index].imagePath == m_defaultImagePath) {
+        m_scoreFiles[index].imageHandle = -1;
+        return false;
+    }
+    m_scoreFiles[index].imageHandle = DxLib::LoadGraph(m_scoreFiles[index].imagePath.c_str());
+    return false;
+}
 bool ScoreManager::SkipSpace(const int* fileHandle) {
     if (fileHandle == nullptr || *fileHandle == NULL) return true;
     while (DxLib::FileRead_eof(*fileHandle) == NULL) {
@@ -331,41 +347,46 @@ bool ScoreManager::LoadScoreInfo() {
         }
         DxLib::FileRead_close(fileHandle);
 
-        // LoadJacketImage(i);
+        LoadJacketImage(i);
     }
     m_hasLoadedScore = true;
     return false;
 }
 
-
-
-
-
+void ScoreManager::DrawJacketImage(int x, int y, unsigned int index, int transFlag) {
+    if (IsAvailableIndex(index)) {
+        if (m_scoreFiles[index].imageHandle == -1) {
+            DxLib::DrawGraph(x, y, m_defaultImageHandle, TRUE);
+        }
+        else {
+            DxLib::DrawGraph(x, y, m_scoreFiles[index].imageHandle, transFlag);
+        }
+    }
+}
 
 void ScoreManager::DrawScoreInfo(unsigned int index) {
-    if (m_isError || m_fileNum == 0 || index > (unsigned)m_fileNum || m_scoreFiles == nullptr) {
-        return;
+    if (IsAvailableIndex(index)) {
+        DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+        DrawBox(0, 0, 700, 304, 0U, TRUE);
+        DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+        DrawFormatString(0, 0, 0xffffff, u8"Title         = %s", m_scoreFiles[index].title.c_str());
+        DrawFormatString(0, 16, 0xffffff, u8"Artist        = %s", m_scoreFiles[index].artist.c_str());
+        DrawFormatString(0, 32, 0xffffff, u8"MusicPath     = %s", m_scoreFiles[index].musicPath.c_str());
+        DrawFormatString(0, 48, 0xffffff, u8"ImagePath     = %s", m_scoreFiles[index].imagePath.c_str());
+        DrawFormatString(0, 64, 0xffffff, u8"MusicPrevPos  = %d", m_scoreFiles[index].musicPrevPos);
+        DrawFormatString(0, 80, 0xffffff, u8"NoteStartSeek = %lld", m_scoreFiles[index].noteStartSeek);
+        DrawFormatString(0, 96, 0xffffff, u8"SongVol       = %d", m_scoreFiles[index].songVol);
+        DrawFormatString(0, 112, 0xffffff, u8"SEVol         = %d", m_scoreFiles[index].SEVol);
+        DrawFormatString(0, 128, 0xffffff, u8"URL           = %s", m_scoreFiles[index].url.c_str());
+        DrawFormatString(0, 144, 0xffffff, u8"Offset        = %d", m_scoreFiles[index].offset);
+        DrawFormatString(0, 160, 0xffffff, u8"BPM           = %lf", m_scoreFiles[index].BPM);
+        DrawFormatString(0, 176, 0xffffff, u8"Level:Easy    = %d", m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::EASY)]);
+        DrawFormatString(0, 192, 0xffffff, u8"Level:Normal  = %d", m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::NORMAL)]);
+        DrawFormatString(0, 208, 0xffffff, u8"Level:Hard    = %d", m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::HARD)]);
+        DrawFormatString(0, 224, 0xffffff, u8"Level:Expert  = %d", m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::EXPERT)]);
+        DrawFormatString(0, 240, 0xffffff, u8"BgColor:1     = #%x", m_scoreFiles[index].bgColor[0].Get());
+        DrawFormatString(0, 256, 0xffffff, u8"BgColor:2     = #%x", m_scoreFiles[index].bgColor[1].Get());
+        DrawFormatString(0, 272, 0xffffff, u8"BgColor:3     = #%x", m_scoreFiles[index].bgColor[2].Get());
+        DrawFormatString(0, 288, 0xffffff, u8"BgColor:4     = #%x", m_scoreFiles[index].bgColor[3].Get());
     }
-    DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
-    DrawBox(0, 0, 700, 304, 0U, TRUE);
-    DxLib::SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-    DrawFormatString(0, 0, 0xffffff,   u8"Title         = %s",   m_scoreFiles[index].title.c_str());
-    DrawFormatString(0, 16, 0xffffff,  u8"Artist        = %s",   m_scoreFiles[index].artist.c_str());
-    DrawFormatString(0, 32, 0xffffff,  u8"MusicPath     = %s",   m_scoreFiles[index].musicPath.c_str());
-    DrawFormatString(0, 48, 0xffffff,  u8"ImagePath     = %s",   m_scoreFiles[index].imagePath.c_str());
-    DrawFormatString(0, 64, 0xffffff,  u8"MusicPrevPos  = %d",   m_scoreFiles[index].musicPrevPos);
-    DrawFormatString(0, 80, 0xffffff,  u8"NoteStartSeek = %lld", m_scoreFiles[index].noteStartSeek);
-    DrawFormatString(0, 96, 0xffffff,  u8"SongVol       = %d",   m_scoreFiles[index].songVol);
-    DrawFormatString(0, 112, 0xffffff, u8"SEVol         = %d",   m_scoreFiles[index].SEVol);
-    DrawFormatString(0, 128, 0xffffff, u8"URL           = %s",   m_scoreFiles[index].url.c_str());
-    DrawFormatString(0, 144, 0xffffff, u8"Offset        = %d",   m_scoreFiles[index].offset);
-    DrawFormatString(0, 160, 0xffffff, u8"BPM           = %lf",  m_scoreFiles[index].BPM);
-    DrawFormatString(0, 176, 0xffffff, u8"Level:Easy    = %d",   m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::EASY)]);
-    DrawFormatString(0, 192, 0xffffff, u8"Level:Normal  = %d",   m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::NORMAL)]);
-    DrawFormatString(0, 208, 0xffffff, u8"Level:Hard    = %d",   m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::HARD)]);
-    DrawFormatString(0, 224, 0xffffff, u8"Level:Expert  = %d",   m_scoreFiles[index].level[static_cast<std::size_t>(ScoreInfo_t::Levels::EXPERT)]);
-    DrawFormatString(0, 240, 0xffffff, u8"BgColor:1     = #%x",  m_scoreFiles[index].bgColor[0].Get());
-    DrawFormatString(0, 256, 0xffffff, u8"BgColor:2     = #%x",  m_scoreFiles[index].bgColor[1].Get());
-    DrawFormatString(0, 272, 0xffffff, u8"BgColor:3     = #%x",  m_scoreFiles[index].bgColor[2].Get());
-    DrawFormatString(0, 288, 0xffffff, u8"BgColor:4     = #%x",  m_scoreFiles[index].bgColor[3].Get());
 }
