@@ -5,6 +5,14 @@
 #include <vector>
 #include <tuple>
 
+/*
+namespace std {
+    string to_string(string _Val) {
+        return _Val;
+    }
+};
+*/
+
 class Language : public Singleton<Language> {
     Language();
     ~Language();
