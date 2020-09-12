@@ -23,5 +23,4 @@ void Menu::Update() {
 
 void Menu::Draw() {
     BaseScene::Draw();
-    
 }
